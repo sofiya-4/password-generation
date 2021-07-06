@@ -1,0 +1,105 @@
+Ex5: Password Generation ?
+
+Problem Description:
+--------------------
+Given input an array of string in format <emp-name>:<emp-number> seperated by commas.
+Employee name should contain only alphabets and employee number contains only digits.
+Now your task is to generate password for given input as follow.
+
+Examples:
+----------
+Input: 
+Robert:36787,Tina:68721,Jo:56389
+
+Output:
+tiX
+
+Conditions:
+Length of Robert is 6 and 6 is present in employee number of Robert, so return the alphabet
+at position 6 that is "t".
+Now length of tina is 4 and 4 is not present in the 68721,
+so select the number which is max and less than the length of tina
+so select 2 which is present in 68721.
+so return the alphabet that is at position 2 that is "i".
+Now length of jo is 2 and it is not present in 56389 and there is not 
+present any number which is less than 2 , so return "X".
+
+So, totally the generated password for the given input is tiX.
+
+Test case -1 
+Input:
+Robert:36787,Tina:68721,Jo:56389
+
+Output:
+tiX
+
+Test case -2 
+Input:
+srinu:98521,ramesh:625413,k:5243
+
+Output:
+uhX
+
+Test case - 3
+Input:
+AEC:12456,ACOE:547813,ACE:36514,ADC:45678
+
+Output:
+EEEX
+
+
+package Pack1;
+import java.util.*;
+public class Pass_Gen {
+	
+static String password(String name, String num){
+	int len = name.length(); // Robert = 6
+	while(len != 0)
+	{ // num = 36787, 68721
+		if(num.contains(len+""))
+		{
+			char ch[]=name.toCharArray();
+			// ch[] = 'R','o','b','e','r','t'
+		return ch[len-1]+"";	// t, i
+		}
+		else
+			len=len-1; // 2
+	}
+	return "X";	// X
+	}
+	
+	
+	
+	public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);
+	String str = sc.nextLine();
+	//str = Robert:36787,Tina:68721,Jo:56389
+	
+	// split str into 3 recs
+	String emp[] = str.split(",");// 3 rec
+	//emp[0] = Robert:36787
+	//emp[1] = Tina:68721
+	//emp[2] = Jo:56389	
+	
+	// 2 empty vars
+	String emp_name[],emp_number[];
+	emp_name = new String[emp.length];// 3
+	emp_number = new String[emp.length];// 3
+	
+	//each rec split into 2 parts
+	for(int i =0; i < emp.length;i++)// 0 1 2
+	{  // temp holds only 1 rec
+		String temp[] = emp[i].split(":");
+		//temp[0] = Tina
+		//temp[1] = 68721
+		//assign values
+		emp_name[i] = temp[0];// 3 names
+		emp_number[i] = temp[1]; // 3 empno
+	}
+	for(int i = 0; i < emp_name.length; i++)
+	{
+		System.out.print(password(emp_name[i],emp_number[i]));//tiX
+	}
+} }
+
+==========================================================================================
